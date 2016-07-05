@@ -1,0 +1,22 @@
+{:desc "carocad's Lighttable plugin development environment",
+ :version "0.0.1",
+ :source "itself",
+ :behaviors "user.behaviors",
+ ;; Do not edit - :dependencies are auto-generated
+:dependencies {
+"Aleph" "0.1.0",
+ "Birch" "0.0.1",
+ "CSS" "0.0.6",
+ "Clojure" "0.3.2",
+ "HTML" "0.1.0",
+ "Javascript" "0.2.0",
+ "Markdown" "0.0.3",
+ "NerdyPainter" "0.0.3",
+ "Paredit" "0.0.4",
+ "Python" "0.0.7",
+ "Syntax Status Bar" "0.9.0",
+ "Whitespace" "0.0.1",
+ "photon" "0.1.0",
+ "playground" "0.0.2"},
+ :author "Camilo Roca",
+ :name "user"}

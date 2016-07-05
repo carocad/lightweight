@@ -1,0 +1,65 @@
+;; User behaviors
+;; -----------------------------
+;; Behaviors are stored as a set of diffs that are merged together
+;; to create the final set of functionality that makes up Light Table. You can
+;; modify these diffs to either add or subtract functionality.
+;;
+;; Behaviors are added to tags, objects with those tags then automatically gain
+;; whatever logic the behavior imparts. To see a list of user-level behaviors,
+;; start typing a word related to the functionality you want in between the square
+;; brackets (e.g. "theme").
+
+[
+ ;; The app tag is kind of like global scope. You assign behaviors that affect
+ ;; all of Light Table to it.
+ [:app :lt.objs.style/set-skin "dark"]
+ [:app :lt.objs.plugins/load-js "user_compiled.js"]
+ ;[:app :lt.plugins.python/python-exe "/usr/bin/python3.4"]
+ [:app :lt.objs.app/run-on-init :toggle-visible-whitespace]
+ [:app :lt.objs.console/set-console-limit 200]
+
+  ;; :plugins is an alias for your plugins directory
+ [:app :lt.plugins.photon/set-directories [:plugins "~/Proyectos"]]
+
+ ;; The editor tag is applied to all editors
+ [:editor :lt.objs.editor/no-wrap]
+ [:editor :lt.plugins.auto-complete/set-hint-limit 10]
+ [:editor :lt.objs.style/set-theme "lesser-dark"]
+ [:editor :lt.objs.editor/line-numbers]
+; [:editor :lt.objs.editor/fold-gutter]
+ [:editor :lt.objs.editor/tab-settings false 4 2]
+ [:editor :lt.objs.editor/highlight-current-line]
+
+ ;; Here we can add behaviors to just clojure editors
+  [:editor.clojure :lt.plugins.clojure/print-length 150]
+  ;[:editor.clojure :lt.objs.editor.file/on-save :eval-editor]
+
+; -- ALPHA --- different stacktrace inline : LIGHTTABLE ISSUE - waiting for publishing
+    ; collapsible stacktrace
+  [:editor.clj.common :lt.plugins.pop-error/expandable-exceptions]
+
+  [:editor.clj :-lt.plugins.clojure/clj-exception]
+  [:editor.clj :lt.plugins.user/clj-expandable-exception]
+  [:editor.cljs :-lt.plugins.clojure/cljs-exception]
+  [:editor.cljs :lt.plugins.user/cljs-expandable-exception]
+
+  [:collapsible.exception :lt.objs.menu/menu!]
+  [:collapsible.exception :lt.objs.eval/ex-menu+]
+  [:collapsible.exception :lt.objs.eval/ex-clear]
+  [:collapsible.exception :lt.objs.eval/expand-on-click]
+  [:collapsible.exception :lt.objs.eval/shrink-on-double-click]
+  [:collapsible.exception :lt.objs.eval/destroy-on-cleared]
+  ;currently this copies the complete stacktrace but what about just copying the summary?
+  [:collapsible.exception :lt.objs.eval/copy-result]
+;=========================================================================
+
+  ; underline results : LIGHTTABLE ISSUE - waiting for publishing
+  [:inline.underline-result :lt.objs.menu/menu!]
+
+  ;; Here we can add behaviors to just clojureScript editors
+ ;[:editor.clojurescript :lt.objs.editor.file/on-save :eval-editor]
+
+ ;; To subtract a behavior, prefix the name with '-' e.g.
+ ;;  [:app :-lt.objs.intro/show-intro]
+]
+

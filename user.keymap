@@ -1,0 +1,47 @@
+;; User keymap
+;; -----------------------------
+;; Keymaps are stored as a set of diffs that are merged together to create
+;; the final set of keys. You can modify these diffs to either add or
+;; subtract bindings.
+;;
+;; Like behaviors, keys are bound by tag. When objects with those tags are active
+;; the key bindings are live. Keys can be bound to any number of Light Table commands,
+;; allowing you the flexibility to execute multiple operations together. To see a list
+;; of all the commands you can execute, start typing a word related to the thing you
+;; want to do in between the square brackets (e.g. type "editor").
+
+[
+ [:editor "shift-w" :editor.watch.watch-selection]
+ [:editor "alt-shift-w" :editor.watch.unwatch]
+
+ [:app "alt-o" :workspace.show]
+ [:app "alt-c" :toggle-console]
+ [:app "alt-l" :clear-console]
+
+ [:editor.clj.common "ctrl-right" :paredit.move.up.forward]
+ [:editor.clj.common "ctrl-left" :paredit.move.up.backward]
+ [:editor.clj.common "ctrl-up" :paredit.move.down.backward]
+ [:editor.clj.common "ctrl-down" :paredit.move.down.forward]
+
+;;  [:editor.clj "alt-m" [:editor.watch.custom-watch-selection
+;;                           "(let [start (System/currentTimeMillis)
+;;                                  res (do __SELECTION__)]
+;;                              __|(str (- (System/currentTimeMillis) start) \" ms\")|__
+;;                              res)"
+;;                           {:class "timed" :verbatim true}]]
+
+  ;;Alternative watch __|(with-out-str (clojure.pprint/pprint (get @WATCH_LOG __ID__ \"Key not found\")))|__
+  [:editor.clj "alt-t" [:editor.watch.custom-watch-selection
+                          "(let [result (do __SELECTION__)]
+                             (defonce WATCH_LOG (atom {}))
+                             (swap! WATCH_LOG update-in [__ID__] (fnil conj []) result)
+                             __|(str (get @WATCH_LOG __ID__ \"Key not found\"))|__
+                            result)"
+                          {:class "timed" :verbatim true}]]
+
+  [:editor.clj "ctrl-alt-enter" [:eval.custom "(when (resolve 'WATCH_LOG) (reset! WATCH_LOG {}))" {:result-type :inline :verbatim true}]
+                                :eval-editor-form]
+
+ ;; To subtract a binding, prefix the key with '-'  e.g.
+ ;;  [:app "-ctrl-shift-d" :docs.search.show]
+]
