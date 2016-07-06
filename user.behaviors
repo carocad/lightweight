@@ -56,6 +56,10 @@
   ; underline results : LIGHTTABLE ISSUE - waiting for publishing
   [:inline.underline-result :lt.objs.menu/menu!]
 
+;; =======================================================================
+  [:editor.clj :lt.plugins.live-doc/clj-result.live-doc]
+  [:editor.clj :lt.plugins.live-doc/live-doc-at-cursor]
+
   ;; Here we can add behaviors to just clojureScript editors
  ;[:editor.clojurescript :lt.objs.editor.file/on-save :eval-editor]
 
